@@ -88,8 +88,7 @@ cp mysql-connector-java-5.1.40-bin.jar /usr/local/Cellar/solr/6.1.0/libexec/dist
 ```
 vi /usr/local/Cellar/solr/6.1.0/server/solr/test/conf/solrconfig.xml
 ```
-* 引入相关驱动包
-将 `/usr/local/Cellar/solr/6.1.0/libexec/dist/` 中的 3 个相关 jar 包进入进来：
+引入相关驱动包，将 `/usr/local/Cellar/solr/6.1.0/libexec/dist/` 中的 3 个相关 jar 包进入进来：
 ```
 <lib dir="${solr.install.dir}/libexec/dist/" regex="mysql-connector-java-5.1.40-bin.jar" />
 <lib dir="${solr.install.dir}/libexec/dist/" regex="solr-dataimporthandler-.*\.jar" />
@@ -97,8 +96,7 @@ vi /usr/local/Cellar/solr/6.1.0/server/solr/test/conf/solrconfig.xml
 
 ![include_jar](./img/include_jar.png)
 
-* 添加 MySQL 配置信息
-在`<requestHandler name="/select" class="solr.SearchHandler">`的前面添加以下信息：
+添加 MySQL 配置信息，在`<requestHandler name="/select" class="solr.SearchHandler">`的前面添加以下信息：
 ```
 <requestHandler name="/dataimport" class="org.apache.solr.handler.dataimport.DataImportHandler">  
     <lst name="defaults">  
@@ -109,7 +107,7 @@ vi /usr/local/Cellar/solr/6.1.0/server/solr/test/conf/solrconfig.xml
 
 ![data_import_handler](./img/data_import_handler.png)
 
-* 在同目录下新建`data-config.xml`文件
+在同目录下新建`data-config.xml`文件：
 ```
 vi /usr/local/Cellar/solr/6.1.0/server/solr/test/conf/data-config.xml
 ```
@@ -160,7 +158,7 @@ vi /usr/local/Cellar/solr/6.1.0/server/solr/test/conf/managed-schema
 
 ![field_name](./img/field_name.png)
 
-##  重启 solr 服务
+##  重启 Solr 服务
 ```
 solr restart
 ```
@@ -185,6 +183,51 @@ Started Solr server on port 8983 (pid=1784). Happy searching!
 
 ![query](./img/query.png)
 
+
+## 中文分词
+
+下载必要的组件：
+* IKAnalyzer jar 包: ik-analyzer-solr5-5.x.jar
+* IKAnalyzer 配置文件: IKAnalyzer.cfg.xml
+* 词库: mydict.dic 和 stopword.dic
+
+下载地址：https://github.com/jxlwqq/Installing-Solr-and-indexing-MySQL-on-macOS/tree/master/file
+
+下载后，将相关文件复制到相应的目录中，操作目录如下：
+
+```
+cp ik-analyzer-solr5-5.x.jar /usr/local/Cellar/solr/6.1.0/server/solr-webapp/webapp/WEB-INF/lib/
+mkdir /usr/local/Cellar/solr/6.1.0/server/solr-webapp/webapp/WEB-INF/lib/classes/
+cp IKAnalyzer.cfg.xml /usr/local/Cellar/solr/6.1.0/server/solr-webapp/webapp/WEB-INF/lib/classes/
+cp mydict.dic /usr/local/Cellar/solr/6.1.0/server/solr-webapp/webapp/WEB-INF/lib/classes/
+cp stopword.dic /usr/local/Cellar/solr/6.1.0/server/solr-webapp/webapp/WEB-INF/lib/classes/
+```
+
+修改 managed-schema 文件:
+```
+vi /usr/local/Cellar/solr/6.1.0/server/solr/test/conf/managed-schema
+```
+追加以下内容：
+```
+<fieldType name="text_ik" class="solr.TextField">
+    <analyzer class="org.wltea.analyzer.lucene.IKAnalyzer"/>
+</fieldType>
+<field name="text_ik" type="text_ik" indexed="true" stored="true" multiValued="false"/>
+```
+![ik](./img/ik.png)
+重启 Solr 或者重新加载test core：
+```
+solr restart
+```
+![reload core](./img/reload.png)
+
+在 analysis 页面上进行测试：
+
+![analysis](./img/analysis.png)
+
+
 ## 参考
+* [solr教程，值得刚接触搜索开发人员一看](http://blog.csdn.net/awj3584/article/details/16963525#comments)
 * [sorl6.0+jetty+mysql搭建solr服务](http://www.cnblogs.com/hujunzheng/p/5647896.html)
 * [Solr之搭建Solr6.0服务并从Mysql上导入数据](http://blog.csdn.net/linzhiqiang0316/article/details/51464461)
+* [solr6.0配置中文分词器IK Analyzer](http://blog.csdn.net/linzhiqiang0316/article/details/51554217)
