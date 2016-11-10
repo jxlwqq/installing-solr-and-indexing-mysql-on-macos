@@ -176,7 +176,7 @@ Started Solr server on port 8983 (pid=1784). Happy searching!
 
 ![admin_data_import](./img/admin_data_import.png)
 
-成功后，然后以下界面：
+成功后，显示以下界面：
 
 ![indexing_mysql](./img/indexing_mysql.png)
 
