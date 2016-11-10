@@ -215,7 +215,8 @@ vi /usr/local/Cellar/solr/6.1.0/server/solr/test/conf/managed-schema
 <field name="text_ik" type="text_ik" indexed="true" stored="true" multiValued="false"/>
 ```
 ![ik](./img/ik.png)
-重启 Solr 或者重新加载test core：
+
+重启 Solr 或者重新加载 test core：
 ```
 solr restart
 ```
