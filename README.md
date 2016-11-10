@@ -184,3 +184,7 @@ Started Solr server on port 8983 (pid=1784). Happy searching!
 进入 Query 页面，点击`Execute`按钮：
 
 ![query](./img/query.png)
+
+## 参考
+* [sorl6.0+jetty+mysql搭建solr服务](http://www.cnblogs.com/hujunzheng/p/5647896.html)
+* [Solr之搭建Solr6.0服务并从Mysql上导入数据](http://blog.csdn.net/linzhiqiang0316/article/details/51464461)
