@@ -226,6 +226,10 @@ solr restart
 
 ![analysis](./img/analysis.png)
 
+## Solr 基础教程
+
+想进一步学习 Solr 基础教程的可以[查看](./doc/Solr基础教程.md)
+
 
 ## 参考
 * [solr教程，值得刚接触搜索开发人员一看](http://blog.csdn.net/awj3584/article/details/16963525#comments)
