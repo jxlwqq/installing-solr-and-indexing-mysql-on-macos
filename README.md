@@ -1,4 +1,5 @@
-> 本文测试使用的 Solr 版本是 6.1，随着版本的升级，可能你使用的版本并不是 6.1，请将下文中涉及到版本号的路径替换为你使用的对应版本。如 `vi /usr/local/Cellar/solr/6.1.0/server/solr/test/conf/solrconfig.xml` 将其中的 6.1 改为 6.*。
+> 本文测试使用的 Solr 版本是 6.1，随着版本的升级，可能你使用的版本并不是 6.1，请将下文中涉及到版本号的路径替换为你使用的对应版本。
+> 如 `vi /usr/local/Cellar/solr/6.1.0/server/solr/test/conf/solrconfig.xml` 将其中的 `6.1.0` 改为 `6.*.*`。
 
 ## 安装 Java 语言的软件开发工具包
 ```
